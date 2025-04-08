@@ -1,0 +1,113 @@
+{
+  "name": "pytest-task-manager",
+  "displayName": "pytest-task-manager",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "files": [
+    "out",
+    "python"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "extension.addFilesAsTestTask",
+          "group": "navigation",
+          "when": "true"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "testTasks.deleteTask",
+          "when": "view == testTasks && viewItem == testTask",
+          "group": "1_modification@3"
+        },
+        {
+          "command": "testTasks.editTask",
+          "when": "view == testTasks && viewItem == testTask",
+          "group": "1_modification@2"
+        },
+        {
+          "command": "testTasks.executeTask",
+          "when": "view == testTasks && viewItem == testTask",
+          "group": "1_modification@1"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+          {
+              "id": "testTasks",
+              "name": "测试任务",
+              "when": "workbenchState != empty"
+          }
+      ]
+    },
+    "commands": [
+      {
+        "command": "extension.openFile",
+        "title": "打开文件",
+        "category": "Test Items"
+      },
+      {
+        "command": "extension.addFilesAsTestTask",
+        "title": "创建任务"
+      },
+      {
+        "command": "testTasks.executeTask",
+        "title": "执行",
+        "icon": {
+            "light": "resources/light/play.svg",
+            "dark": "resources/dark/play.svg"
+        }
+      },
+      {
+        "command": "testTasks.editTask",
+        "title": "更名"
+      },
+      {
+          "command": "testTasks.deleteTask",
+          "title": "删除"
+      },
+      {
+          "command": "testTasks.refresh",
+          "title": "刷新"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.98.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "eslint": "^9.23.0",
+    "esbuild": "^0.25.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.8.2",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
