@@ -9,10 +9,6 @@
   "categories": [
     "Other"
   ],
-  "files": [
-    "out",
-    "python"
-  ],
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
