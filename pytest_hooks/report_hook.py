@@ -1,11 +1,13 @@
 import json
 import time
+import builtins
 from datetime import datetime
 from pytest import hookimpl
 
 
 _report_dir = None
 _session_start = None
+__print = builtins.print
 
 
 def pytest_configure(config):
@@ -18,6 +20,41 @@ def pytest_configure(config):
     _session_start = _report_dir / datetime.now().strftime('%Y%m%d_%H%M%S')
     _session_start.mkdir(exist_ok=True)
     print(f"🌈 Report dir: {_session_start}")
+
+    try:
+        print("🌈 Caps ologging output..")
+
+        # logging
+        import logging
+
+        file_handler = logging.FileHandler(_session_start / 'case.log')
+        logger = logging.getLogger()
+
+        # loguru
+        print("🌈 Caps lloguruoutput...")
+        from loguru import logger
+
+        logger.add(file_handler)
+
+        # print
+        logger = logging.Logger('vscode.pytest.manager', level='DEBUG')
+        file_handler = logging.FileHandler(_session_start / 'case.log')
+        logger.addHandler(file_handler)
+
+        def _print(*msgs):
+            try:
+                msg = ' '.join([msg if isinstance(msg, str)
+                               else str(msg) for msg in msgs])
+                logger.debug(msg)
+                __print(*msgs)
+            except Exception:
+                print(*msg)
+
+        print("🌈 Caps lprintoutput...")
+        builtins.print = _print
+
+    except Exception:
+        print("💢 Set logging file config error...")
 
 
 @hookimpl
