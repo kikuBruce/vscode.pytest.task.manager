@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { TestTaskProvider } from "./extension";
+import { TestTaskProvider } from "./testTask";
 
 class TestResultWatcher {
   private watcher: fs.FSWatcher | undefined;
