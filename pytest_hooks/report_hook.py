@@ -22,7 +22,7 @@ def pytest_configure(config):
     print(f"🌈 Report dir: {_session_start}")
 
     try:
-        print("🌈 Caps ologging output..")
+        print("🌈 Caps logging output..")
 
         # logging
         import logging
@@ -31,7 +31,7 @@ def pytest_configure(config):
         logger = logging.getLogger()
 
         # loguru
-        print("🌈 Caps lloguruoutput...")
+        print("🌈 Caps loguru output...")
         from loguru import logger
 
         logger.add(file_handler)
@@ -50,7 +50,7 @@ def pytest_configure(config):
             except Exception:
                 print(*msg)
 
-        print("🌈 Caps lprintoutput...")
+        print("🌈 Caps print output...")
         builtins.print = _print
 
     except Exception:
